@@ -132,16 +132,12 @@ function addDepartment() {
   db.query(query, function (err, res) {
     if (err) throw err;
 
-    const departmentChoices = res.map(({ id, name }) => ({
-      value: id, title: name,
-    }));
-
     console.table(res);
-    promptAddDepartment(departmentChoices);
+    promptAddDepartment();
   });
 }
 
-function promptAddDepartment(departmentChoices) {
+function promptAddDepartment() {
 
   inquirer
     .prompt([
@@ -175,39 +171,47 @@ function addRole() {
   console.log("Inserting an role!")
 
   var query =
-    `SELECT r.id, r.name
+    `SELECT r.id, r.title, r.salary , r.department_id
      FROM role r`
 
   db.query(query, function (err, res) {
     if (err) throw err;
 
-    const roleChoices = res.map(({ id, title, salary }) => ({
-      value: id, title: `${title}`, salary: `${salary}`
-    }));
-
     console.table(res);
-    promptAddRole(roleChoices);
+    promptAddRole();
   });
 }
 
-function promptAddRole(roleChoices) {
+function promptAddRole() {
 
   inquirer
     .prompt([
       {
         type: "input",
-        name: "name",
+        name: "title",
         message: "What is the name of the new role?"
+      },
+      {
+        type: "input",
+        name: "salary",
+        message: "What is the salary of the new role?"
+      },
+      {
+        type: "input",
+        name: "department_id",
+        message: "What is the department id of the new role?"
       }
     ])
     .then(function (answer) {
       console.log(answer);
 
-      var query = `INSERT INTO department SET ?`
+      var query = `INSERT INTO role SET ?`
    
       db.query(query,
         {
-          name: answer.name,
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.department_id
         },
         function (err, res) {
           if (err) throw err;
@@ -230,16 +234,16 @@ function addEmployee() {
   db.query(query, function (err, res) {
     if (err) throw err;
 
-    const roleChoices = res.map(({ id, title, salary }) => ({
+    const employeeRoleChoices = res.map(({ id, title, salary }) => ({
       value: id, title: `${title}`, salary: `${salary}`
     }));
 
     console.table(res);
-    promptAddEmployee(roleChoices);
+    promptAddEmployee(employeeRoleChoices);
   });
 }
 
-function promptAddEmployee(roleChoices) {
+function promptAddEmployee(employeeRoleChoices) {
 
   inquirer
     .prompt([
@@ -257,7 +261,7 @@ function promptAddEmployee(roleChoices) {
         type: "list",
         name: "roleId",
         message: "What is the employee's role?",
-        choices: roleChoices
+        choices: employeeRoleChoices
       },
     ])
     .then(function (answer) {
