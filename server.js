@@ -1,26 +1,27 @@
-// const express = require('express');
 const mysql = require('mysql2');
 const inquirer = require("inquirer");
-require('dotenv').config();
+// require('dotenv').config();
 require("console.table");
 
-const PORT = process.env.PORT || 3001;
-// const app = express();
-
-// // Express middleware
-// app.use(express.urlencoded({ extended: false }));
-// app.use(express.json());
-
-// Connect to database
 const db = mysql.createConnection(
-  process.env.DB_NAME,
-  process.env.DB_USER,
-  process.env.DB_PASSWORD,
+  // process.env.DB_NAME,
+  // process.env.DB_USER,
+  // process.env.DB_PASSWORD,
   {
     host: 'localhost',
+    port: '5001',
+    user: 'root',
+    password: '',
+    database: 'employees_db'
   },
   console.log(`Connected to the employees_db database.`)
 );
+
+db.connect(function (err) {
+  if (err) throw err;
+  console.log("connected as id " + db.threadId);
+  menuPrompt();
+});
 
 function menuPrompt() {
 
