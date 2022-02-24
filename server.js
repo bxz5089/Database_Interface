@@ -1,15 +1,17 @@
 const mysql = require('mysql2');
 const inquirer = require("inquirer");
-// require('dotenv').config();
-require("console.table");
+const express = require('express');
+const { Console } = require('console');
+
+const PORT = process.env.PORT || 3001;
+const app = express();
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 const db = mysql.createConnection(
-  // process.env.DB_NAME,
-  // process.env.DB_USER,
-  // process.env.DB_PASSWORD,
   {
     host: 'localhost',
-    port: '5001',
     user: 'root',
     password: '',
     database: 'employees_db'
@@ -81,18 +83,15 @@ function menuPrompt() {
 function viewAllDepartments() {
   console.log("Viewing all departments\n");
 
-  let query =`
+  const query =`
       SELECT e.id, e.first_name, e.last_name, r.title, d.name AS department, r.salary, CONCAT(m.first_name, ' ', m.last_name) AS manager
       FROM employee e
-      LEFT JOIN role r
-      ON e.role_id = r.id
-      LEFT JOIN department d
-      ON d.id = r.department_id
-      LEFT JOIN employee m
-      ON m.id = e.manager_id
+      LEFT JOIN role r ON e.role_id = r.id
+      LEFT JOIN department d ON d.id = r.department_id
+      LEFT JOIN employee m ON m.id = e.manager_id
       `
 
-  connection.query(query, function (err, res) {
+  db.query(query, function (err, res) {
     if (err) throw err;
 
     console.table(res);
