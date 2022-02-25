@@ -29,6 +29,7 @@ This ia a command-line application that be used to manage a company's employee d
 - First, use git clone in the terminal to download the project 
 - Then open the project in VS Code and in the package.json folder enter the terminal 
 - Within the terminal, use npm install to install the required packages
+- Start mysql server and source the schema and seeds in the terminal
 - The command-line application should work when node index.js or npm start is entered into the terminal 
 
 ---
@@ -39,8 +40,8 @@ This command-line application can be used to manage a company's employee databas
 ### Screenshot:
 ![alt text](assets/img/ScreenShot1.png)
 
-### Walkthrough Video:
-[![Watch the video](assets/img/ScreenShot2.png)](https://drive.google.com/file/d/1Oslm6RCPScErXn4-AufZ6xFKltaEgI30/view?usp=sharing)
+### Walkthrough Video: Click to watch!
+[![Watch the video](assets/img/ScreenShot2.png)](https://drive.google.com/file/d/1V_t5tJp2JCwEV65WM_1CK-RuzbFgMBhR/view?usp=sharing)
 
 
 --- 
