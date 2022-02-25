@@ -1,4 +1,4 @@
-# Database Interface Application
+# Database Interface Employee Management Application
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
